@@ -226,7 +226,7 @@ QString withMediaDirectives(const QString &source, const QStringList &remove,
     const auto first = tokens.match(flags);
     const bool directives =
         first.hasMatch() && first.capturedStart() == 0 &&
-        (QStringList{"fit", "span", "loop", "muted"}.contains(first.captured(1)) ||
+        (QStringList{"fit", "span", "loop", "muted", "continuous"}.contains(first.captured(1)) ||
          !first.captured(2).isEmpty());
     QStringList kept = add;
     if (directives) {
@@ -332,7 +332,7 @@ static Media readMedia(const QString &source, const QString &base) {
     auto first = tokens.match(flags);
     bool directives =
         first.hasMatch() && first.capturedStart() == 0 &&
-        (QStringList{"fit", "span", "loop", "muted"}.contains(first.captured(1)) ||
+        (QStringList{"fit", "span", "loop", "muted", "continuous"}.contains(first.captured(1)) ||
          !first.captured(2).isEmpty());
     QString explicitOverlay;
     bool fit = false, span = false;
@@ -359,7 +359,11 @@ static Media readMedia(const QString &source, const QString &base) {
                 result.muted = value != "false";
             else if (key == "autoplay")
                 result.autoplay = value != "false";
-            else if (key == "overlay")
+            else if (key == "continuous") {
+                result.continuous = value != "false";
+                if (!result.video)
+                    result.error = "Only videos can play continuously across slides";
+            } else if (key == "overlay")
                 explicitOverlay = value;
             else if (key == "layout") {
                 if (value != "title" && value != "overlay" && value != "split" &&
