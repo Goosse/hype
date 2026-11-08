@@ -209,6 +209,27 @@ QString withReplacedMedia(const QString &source, const QString &file) {
             : QString();
     return withMedia(source, "![" + flags + "](<" + file + ">)");
 }
+
+QString withComponentVideoFlag(const QString &source, const QString &flag, bool enabled) {
+    // Toggle a bare boolean on the first <Video>, e.g. continuous / loop / muted.
+    static const QRegularExpression tag(R"(<Video\b([^>]*?)(/?)\s*>)");
+    const auto m = tag.match(source);
+    if (!m.hasMatch())
+        return source;
+    QString attrs = m.captured(1);
+    const QRegularExpression strip(
+        QString(R"(\s*%1(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s/>]+))?)").arg(QRegularExpression::escape(flag)));
+    attrs.replace(strip, QString());
+    if (enabled)
+        attrs += " " + flag;
+    attrs = attrs.trimmed();
+    const QString slash = m.captured(2);
+    const QString replacement =
+        attrs.isEmpty() ? "<Video" + slash + ">" : "<Video " + attrs + slash + ">";
+    QString out = source;
+    out.replace(m.capturedStart(), m.capturedLength(), replacement);
+    return out;
+}
 QString withMediaDirectives(const QString &source, const QStringList &remove,
                             const QStringList &add) {
     const QString marker = "\x01HYPE_MEDIA\x01";
@@ -260,6 +281,7 @@ static Media readMedia(const QString &source, const QString &base) {
             result.loop = flag("loop", false);
             result.muted = flag("muted", false);
             result.autoplay = flag("autoplay", true);
+            result.continuous = flag("continuous", false);
             if (!video.value("poster").isEmpty())
                 result.poster = assetPath(base, video.value("poster"), false);
         }

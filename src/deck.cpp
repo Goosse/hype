@@ -1700,7 +1700,9 @@ void Deck::setMediaContinuous(bool enabled) {
     const auto media = parseMedia(slideSource(), baseDir());
     if (!media.video || media.continuous == enabled)
         return;
-    if (enabled)
+    if (media.layout == "components")
+        editSlide(withComponentVideoFlag(slideSource(), "continuous", enabled));
+    else if (enabled)
         editSlide(withMediaDirectives(slideSource(), {"continuous"}, {"continuous"}));
     else
         editSlide(withMediaDirectives(slideSource(), {"continuous"}, {}));

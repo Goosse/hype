@@ -211,7 +211,8 @@ const QHash<QString, Spec> &specs() {
                         true,
                         "Photos from a list of images, cropped into tidy rows"};
         s["Video"] = {
-            {"src", "poster", "aspect", "radius", "autoplay", "loop", "muted", "shadow", "play"},
+            {"src", "poster", "aspect", "radius", "autoplay", "loop", "muted", "continuous",
+             "shadow", "play"},
             {},
             false,
             "A video from videos/, played in place while presenting"};

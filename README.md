@@ -182,6 +182,7 @@ For an editable word cloud, add `<!-- hype: layout="cloud" -->`, a `# Title`, an
 | `![loop muted](demo.mp4)` | Loop a video without sound |
 | `![autoplay=false](demo.mp4)` | Wait for Space to play the video |
 | `![continuous](demo.mp4)` | Keep playing when the next slide uses the same file |
+| `<Video src="demo.mp4" continuous/>` | Same continuous playback on a component slide |
 
 Choose **Play across slides** from the **Layout** menu for a video background that should continue through a run of slides (lyric decks, for example). Without `continuous`, each slide starts the video over. A different file, or a slide with no video, still starts clean. Continuous playback applies while presenting in Hype; PowerPoint export still embeds each slide’s video separately.
 

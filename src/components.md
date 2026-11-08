@@ -261,7 +261,7 @@ wrapping row of pills (`tone`, `variant`, `size`).
 ### Video, Collage, QR
 
 ```markdown
-<Video src="demo.mp4" poster="still.jpg" radius="theme" autoplay="false"/>
+<Video src="demo.mp4" poster="still.jpg" radius="theme" autoplay="false" continuous/>
 <Collage rows="1,2">
 ![](office.jpg)
 ![](nurse.jpg)
@@ -273,7 +273,8 @@ wrapping row of pills (`tone`, `variant`, `size`).
 - `Video`: a video from `videos/`, played in place while presenting and
   embedded where it sits in PowerPoint. Thumbnails, PDF, and previews show its
   first frame, or `poster`, with a play button (`play="false"` hides it).
-  Also `aspect`, `radius`, `shadow`, `autoplay`, `loop`, and `muted`. A slide
+  Also `aspect`, `radius`, `shadow`, `autoplay`, `loop`, `muted`, and
+  `continuous` (keep playing when the next slide uses the same file). A slide
   plays its first video.
 - `Collage`: photos cropped into tidy rows that fill the space, each keeping
   roughly its proportions. `rows="2"` balances them over two rows, and

@@ -178,6 +178,7 @@ Outside a gallery, each slide takes one image or video. Options go inside the br
 | `![loop muted](demo.mp4)` | Loop a video without sound |
 | `![autoplay=false](demo.mp4)` | Wait for Space to play the video |
 | `![continuous](demo.mp4)` | Keep playing when the next slide uses the same file |
+| `<Video src="demo.mp4" continuous/>` | Same continuous playback on a component slide |
 | `![poster=still.png](demo.mp4)` | Show an image from `images/` until it plays |
 | `![position=bottom-right size=10%](logo.png)` | Place a small image, such as a logo, in a corner |
 
