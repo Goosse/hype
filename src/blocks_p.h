@@ -64,6 +64,7 @@ struct Ctx {
     QStringList *problems = nullptr;
     mutable qreal smallest = 1e9; // Smallest text size used, in 1080p pixels.
     bool overflow = false;
+    bool overlayOnly = false; // Text/chrome over a live <Video>, without its poster.
     bool lightSlide = false;
     QVector<QPair<QRectF, QColor>> bands; // Background bands and their average colors.
     QColor rootBg;

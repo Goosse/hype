@@ -20,7 +20,8 @@ QStringList composedProblems(const QString &source, const QString &base,
 // Paints in 1920×1080 slide units; the caller has already scaled the painter.
 // `warning` receives fit and readability warnings.
 void paintComposed(QPainter *painter, const QString &source, const QString &base,
-                   const QVariantMap &palette, QString *warning, QStringList *problems = nullptr);
+                   const QVariantMap &palette, QString *warning, QStringList *problems = nullptr,
+                   bool overlayOnly = false);
 // The first <Video> written on the slide: its props, and where the layout puts it.
 QMap<QString, QString> componentVideo(const QString &source);
 QRectF componentMediaBox(const QString &source, const QString &base, const QVariantMap &palette);

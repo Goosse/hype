@@ -2146,6 +2146,9 @@ qreal videoAspect(const Node &n, const Ctx &c) {
 }
 qreal measureVideo(Node &n, qreal w, Ctx &c) { return w / videoAspect(n, c); }
 void paintVideo(Node &n, Ctx &c) {
+    // Live VideoOutput covers this rect while presenting; leave it clear in the overlay.
+    if (c.overlayOnly)
+        return;
     QPainter *p = c.p;
     const qreal radius =
         n.prop("radius") == "theme" ? c.px(c.radius()) : c.px(n.prop("radius").toDouble());

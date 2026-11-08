@@ -1955,7 +1955,7 @@ ApplicationWindow {
                         height: deck.media.rect.height * slideFrame.height / 1080
                         fillMode: deck.media.span ? VideoOutput.PreserveAspectCrop : VideoOutput.PreserveAspectFit
                     }
-                    Image { anchors.fill: parent; source: visible ? "image://slides/" + (deck.revision, deck.renderId(deck.selected)) + "/overlay" : ""; asynchronous: true; retainWhileLoading: true; sourceSize: Qt.size(1920,1080); visible: animation.active || (video.visible && (deck.media.span || deck.media.layout === "title" || deck.media.layout === "split" || deck.media.layout === "caption" || deck.media.layout === "caption-right")) }
+                    Image { anchors.fill: parent; source: visible ? "image://slides/" + (deck.revision, deck.renderId(deck.selected)) + "/overlay" : ""; asynchronous: true; retainWhileLoading: true; sourceSize: Qt.size(1920,1080); visible: animation.active || (video.visible && (deck.media.span || deck.media.layout === "components" || deck.media.layout === "title" || deck.media.layout === "split" || deck.media.layout === "caption" || deck.media.layout === "caption-right")) }
                     Button { visible: deck.media.video && !win.presenting; anchors.centerIn: parent; text: player.playbackState === MediaPlayer.PlayingState ? "Pause" : "▶ Play"; onClicked: win.toggleVideo() }
                     MouseArea {
                         anchors.fill: parent

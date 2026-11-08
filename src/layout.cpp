@@ -2143,7 +2143,8 @@ void paintComposition(Composition &slide, Ctx &c) {
     c.p->save();
     c.p->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing |
                         QPainter::SmoothPixmapTransform);
-    paintBackgrounds(slide, c, true);
+    // Overlay frames stay transparent where a live VideoOutput will play.
+    paintBackgrounds(slide, c, !c.overlayOnly);
     for (Node &n : slide.flow)
         paintNode(n, c);
     Ctx flat = c;

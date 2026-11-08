@@ -1074,21 +1074,21 @@ void paintSlide(QPainter *p, const QRectF &target, const QString &source, const 
         palette["foreground"] = fg;
     const QVariantMap headingPalette = palette;
     if (isComposedSlide(source, palette)) {
-        // Components paint their own backdrop; there is no media to place under them.
-        if (!overlayOnly) {
-            QStringList problems;
-            paintComposed(p, source, base, palette, warning, &problems);
-            if (!problems.isEmpty()) {
-                p->setPen(Qt::white);
-                p->fillRect(QRectF(0, 1000, 1920, 80), QColor("#9b3030"));
-                QFont diagnostic("sans");
-                diagnostic.setPixelSize(21);
-                p->setFont(diagnostic);
-                p->drawText(QRectF(30, 1005, 1860, 70), Qt::AlignVCenter | Qt::TextWordWrap,
-                            problems.join(" · "));
-                if (warning)
-                    *warning = problems.join("; ");
-            }
+        // Full frame paints everything. Overlay paints text/chrome only so a live <Video>
+        // can play underneath without covering the slide content.
+        QStringList problems;
+        paintComposed(p, source, base, palette, warning, overlayOnly ? nullptr : &problems,
+                      overlayOnly);
+        if (!overlayOnly && !problems.isEmpty()) {
+            p->setPen(Qt::white);
+            p->fillRect(QRectF(0, 1000, 1920, 80), QColor("#9b3030"));
+            QFont diagnostic("sans");
+            diagnostic.setPixelSize(21);
+            p->setFont(diagnostic);
+            p->drawText(QRectF(30, 1005, 1860, 70), Qt::AlignVCenter | Qt::TextWordWrap,
+                        problems.join(" · "));
+            if (warning)
+                *warning = problems.join("; ");
         }
         p->restore();
         return;

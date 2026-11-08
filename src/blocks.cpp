@@ -1876,9 +1876,11 @@ const Node *findType(const QVector<Node> &nodes, const QString &type) {
 } // namespace
 
 void paintComposed(QPainter *p, const QString &source, const QString &base,
-                   const QVariantMap &palette, QString *warning, QStringList *problems) {
+                   const QVariantMap &palette, QString *warning, QStringList *problems,
+                   bool overlayOnly) {
     Ctx c = context(base, palette);
     c.p = p;
+    c.overlayOnly = overlayOnly;
     Composition slide = compose(source, palette, c);
     if (problems) {
         *problems = slide.errors;
@@ -1886,7 +1888,7 @@ void paintComposed(QPainter *p, const QString &source, const QString &base,
     }
     const qreal scale = fitSlide(slide, c, source, base, palette);
     paintComposition(slide, c);
-    if (warning) {
+    if (warning && !overlayOnly) {
         if (c.smallest < 16)
             *warning = "Text fits below 16px on a 1080p slide; say less or split the slide";
         else if (scale < 0.75)
